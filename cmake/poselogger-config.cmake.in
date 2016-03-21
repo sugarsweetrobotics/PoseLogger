@@ -1,0 +1,54 @@
+# PoseLogger CMake config file
+#
+# This file sets the following variables:
+# PoseLogger_FOUND - Always TRUE.
+# PoseLogger_INCLUDE_DIRS - Directories containing the PoseLogger include files.
+# PoseLogger_IDL_DIRS - Directories containing the PoseLogger IDL files.
+# PoseLogger_LIBRARIES - Libraries needed to use PoseLogger.
+# PoseLogger_DEFINITIONS - Compiler flags for PoseLogger.
+# PoseLogger_VERSION - The version of PoseLogger found.
+# PoseLogger_VERSION_MAJOR - The major version of PoseLogger found.
+# PoseLogger_VERSION_MINOR - The minor version of PoseLogger found.
+# PoseLogger_VERSION_REVISION - The revision version of PoseLogger found.
+# PoseLogger_VERSION_CANDIDATE - The candidate version of PoseLogger found.
+
+message(STATUS "Found PoseLogger-@PROJECT_VERSION@")
+set(PoseLogger_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(PoseLogger_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(PoseLogger_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(PoseLogger_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(PoseLogger_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(PoseLogger_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(PoseLogger_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(PoseLogger_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(PoseLogger_VERSION @PROJECT_VERSION@)
+set(PoseLogger_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(PoseLogger_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(PoseLogger_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(PoseLogger_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
